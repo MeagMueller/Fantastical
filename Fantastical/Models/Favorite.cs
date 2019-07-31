@@ -15,5 +15,11 @@ namespace Fantastical.Models
 
         [Required]
         public ApplicationUser User { get; set; }
+
+        [Required]
+        public string CreatureId { get; set; }
+
+        [Required]
+        public Creature Creature { get; set; }
     }
 }
