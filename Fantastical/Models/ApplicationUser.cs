@@ -16,7 +16,13 @@ namespace Fantastical.Models
         }
 
         [Required]
-        public string username { get; set; }
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public string Username { get; set; }
 
         [NotMapped]
         public bool isAdmin { get; set; }
