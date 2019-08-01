@@ -10,10 +10,6 @@ namespace Fantastical.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ApplicationUser()
-        {
-
-        }
 
         [Required]
         public string FirstName { get; set; }
@@ -21,8 +17,6 @@ namespace Fantastical.Models
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public string Username { get; set; }
 
         [NotMapped]
         public bool isAdmin { get; set; }

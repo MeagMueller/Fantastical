@@ -21,5 +21,12 @@ namespace Fantastical.Models
 
         [Required]
         public string ImagePath { get; set; }
+
+        [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
     }
 }
