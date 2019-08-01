@@ -48,16 +48,22 @@ namespace Fantastical.Data
             builder.Entity<Creature>().HasData(
                 new Creature()
                     {
+                        Id = 1,
                         Name = "Anansi",
                         Lore = "In West African lore, Anansi is a trickster character who often takes the shape of a spider and is considered the spirit of all knowledge of stories. Tales of Anansi were part of an exclusively oral tradition, which was fitting as he himself was seen as synonymous with skill and wisdom in speech.",
-                        Region = "West Africa, Jamaica, United States"
+                        Region = "West Africa, Jamaica, United States",
+                        ImagePath = "Anansi.jpg",
+                        UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                     },
 
                 new Creature()
                     {
+                        Id = 2,
                         Name = "Huginn and Muninn",
                         Lore = "Huginn and Muninn (Old Norse for 'thought' and 'memory' or 'mind', respectively) are a pair of ravens that fly all over Midgard (the world) in order to gather information and bring it to the god Odin. Scholars have linked the god's relation to Huginn and Muninn to the shamanic practice of going on a trance-like journey.",
-                        Region = "Scandinavia"
+                        Region = "Scandinavia",
+                        ImagePath = "HuginnandMuninn.jpg",
+                        UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                     }
                 );
             }
