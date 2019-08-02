@@ -7,22 +7,46 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fantastical.Data;
 using Fantastical.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Fantastical.Controllers
 {
     public class CreaturesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private object buttonSearch;
 
-        public CreaturesController(ApplicationDbContext context)
+        public object AcceptButton { get; private set; }
+
+        public CreaturesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Creatures
         public async Task<IActionResult> Index()
         {
+            var applicationDbContext = _context.Creature.Include(c => c.Name).Include(c => c.Region);
             return View(await _context.Creature.ToListAsync());
+        }
+
+        public async Task<IActionResult> Search(string searchCreatures)
+        {
+            var creatureSearch = from c in _context.Creature
+                                 select c;
+
+            if(!String.IsNullOrEmpty(searchCreatures))
+            {
+                creatureSearch = creatureSearch.Where(s => s.Name.Contains(searchCreatures));
+            }
+
+            this.AcceptButton = this.buttonSearch;
+
+            return View(await creatureSearch.ToListAsync());
         }
 
         // GET: Creatures/Details/5
