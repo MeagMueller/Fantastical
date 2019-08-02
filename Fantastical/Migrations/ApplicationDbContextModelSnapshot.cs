@@ -80,19 +80,37 @@ namespace Fantastical.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a4e30cc-34d2-4614-a03e-509f182d6285",
-                            Email = "admin@admin.com",
+                            ConcurrencyStamp = "9a8591ab-0a0b-4c8e-994b-dd618f6c35c6",
+                            Email = "Admin@Admin.com",
                             EmailConfirmed = true,
-                            FirstName = "admin",
-                            LastName = "admin",
+                            FirstName = "Admin",
+                            LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOueVJWDd1HNjAOo5Po5ldXGRLh6sx7M+8CZ7d5D/hFwzY/BVMOqV0vNGAERsRh+ug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDvFAOZeQPiODoHSAu3w8qq/nwMym/8uQ73FAeq8Xiw8l9YUH3mdQD03lB0LajW/MQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
-                            UserName = "admin@admin.com"
+                            UserName = "Admin@Admin.com"
+                        },
+                        new
+                        {
+                            Id = "12345678-wega-werw-jyjt-kepsfienqp",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6e577005-e182-4488-8a7b-3999c282ba81",
+                            Email = "ThisGuy@ThisGuy.com",
+                            EmailConfirmed = true,
+                            FirstName = "This",
+                            LastName = "Guy",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "THISGUY@THISGUY.COM",
+                            NormalizedUserName = "THISGUY@THISGUY.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDu/lCNOZGdOVGQ17o9Ed+LFMkNJbvlnd0wShzjKrZF3bNLT23OlpaFZHTyFkE0uFg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5r423999-f4g5-93i4-2rtt-255re563256",
+                            TwoFactorEnabled = false,
+                            UserName = "ThisGuy@ThisGuy.com"
                         });
                 });
 
@@ -141,6 +159,69 @@ namespace Fantastical.Migrations
                             Name = "Huginn and Muninn",
                             Region = "Scandinavia",
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImagePath = "Mothman.jpg",
+                            Lore = "Mothman is a Cryptid out of West Virginia in the United States. He was first spotted in November 1966 by five men digging a grave in a cemetery near Clendenin, and was described as a man-like figure flying low over their heads. Several days later, he was seen again, this time by two couples who reported a large, gray, flying man with ten-foot wings whose eyes glowed red and who followed their car for some time. A little over a year later in December 1967, the Silver Bridge, which spanned the Ohio river between Point Pleasant, West Virginia, and Gallipolis, Ohio, collapsed and Mothman was connected to the tragedy. Today, Mothman is one of the more well known Cryptids, thanks to books, movies, a statue and a museum dedicated to him in Point Pleasant.There is even a festival held in September every year by the museum and people flock to see speakers, cosplay, and fun activities for kids.",
+                            Name = "Mothman",
+                            Region = "West Virginia",
+                            UserId = "12345678-wega-werw-jyjt-kepsfienqp"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImagePath = "Unicorn.jpg",
+                            Lore = "The Unicorn is a legendary creature, often described as a white horse-like animal with a long spiral horn and cloven hooves. The first known depictions are found in the areas of the Indus Valley Civilization, and are mentioned with some frequency in the annals of Greek history. Interestingly, they are mentioned in accounts of natural history rather than mythology because they were believed by the Greeks to have truly existed in faraway lands. In the Middle Ages and Renaissance, it was said that the unicorn could only be tamed by a virgin, and was emblematic of chaste love and faithful marriage.The horns were said to be made of a substance called alicorn, and it was believed they held magical, medicinal properties.",
+                            Name = "Unicorn",
+                            Region = "Europe",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImagePath = "Wyvern.jpg",
+                            Lore = "A Wyvern is a legendary, bipedal dragon with a tail often ending in a diamond or arrow shaped tip. The creature frequently appears in heraldry and literature, video games, and modern fantasy. There is very little differentiation between Wyverns and Dragons, the key difference being the number of legs.",
+                            Name = "Wyvern",
+                            Region = "Europe",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImagePath = "Sphinx.jpg",
+                            Lore = "A Sphinx is a mystical creature with the head of a human and the body of a lion and, sometimes, the wings of a bird. In Greek mythology, those who could not answer the Sphinx's riddles were eaten. In Egyptian, the Sphinx was regarded more as a benevolent creature, but both were often viewed as guardians of temples.",
+                            Name = "Sphinx",
+                            Region = "Persia, Greece, and Egypt",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImagePath = "Kraken.jpg",
+                            Lore = "A Kraken is a giant cephalopod-like sea-monster in Scandinavian folklore, said to haunt the coasts of Greenland and Norway in order to terrorize unwary sailors.",
+                            Name = "Kraken",
+                            Region = "Scandinavia",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImagePath = "BlackDog.jpg",
+                            Lore = "A Black Dog is a spectral entity found primarily in the folklore of the British Isles. It is a nocturnal apparition often described as a ghost or hellhound, and was said to be an enormous dog with glowing eyes. Its appearance was frequently regarded as a portent of death, and is associated with crossroads, places of execution, and ancient pathways. It is difficult to discern where exactly the tales of the Black Dog began, but throughout European mythology, dogs have been associated with death.",
+                            Name = "Black Dog",
+                            Region = "British Isles",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ImagePath = "Thunderbird.jpg",
+                            Lore = "The Thunderbird is a legendary creature in certain North American Indigenous Peoples' culture and history. It is a being of power and strength, and is most frequently depicted in the art, songs, and oral history of the Pacific Northwest Coast cultures, but also can be found in others. In mythology, the Thunderbird controls the upper world while the underworld is controlled by the Underwater Panther or Great Horned Serpent. In other mythologies, the Thunderbirds reside on a great floating mountain and control the rain and hail and are regarded as warriors, and are the enemies of the Great Horned Snakes.",
+                            Name = "Thunderbird",
+                            Region = "Pacific Northwest Coast",
+                            UserId = "12345678-wega-werw-jyjt-kepsfienqp"
                         });
                 });
 
