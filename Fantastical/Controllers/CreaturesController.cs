@@ -80,12 +80,18 @@ namespace Fantastical.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Lore,Region,ImagePath")] Creature creature)
         {
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+
             if (ModelState.IsValid)
             {
+                var currentUser = await GetCurrentUserAsync();
+                creature.UserId = currentUser.Id;
                 _context.Add(creature);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(creature);
         }
 
