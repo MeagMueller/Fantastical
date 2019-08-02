@@ -18,7 +18,7 @@ namespace Fantastical.Models
         public string LastName { get; set; }
 
 
-        [NotMapped]
+        [Required]
         public bool isAdmin { get; set; }
     }
 }

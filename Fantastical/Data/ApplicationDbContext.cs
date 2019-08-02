@@ -36,6 +36,7 @@ namespace Fantastical.Data
                 NormalizedEmail = "ADMIN@ADMIN.COM",
                 EmailConfirmed = true,
                 LockoutEnabled = false,
+                isAdmin = true,
                 SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                 Id = "00000000-ffff-ffff-ffff-ffffffffffff"
             };
@@ -54,6 +55,7 @@ namespace Fantastical.Data
                 NormalizedEmail = "THISGUY@THISGUY.COM",
                 EmailConfirmed = true,
                 LockoutEnabled = false,
+                isAdmin = false,
                 SecurityStamp = "5r423999-f4g5-93i4-2rtt-255re563256",
                 Id = "12345678-wega-werw-jyjt-kepsfienqp"
             };

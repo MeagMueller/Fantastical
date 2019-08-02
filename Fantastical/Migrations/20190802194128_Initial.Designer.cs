@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fantastical.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190802191709_seeding")]
-    partial class seeding
+    [Migration("20190802194128_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,8 @@ namespace Fantastical.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<bool>("isAdmin");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -82,7 +84,7 @@ namespace Fantastical.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a8591ab-0a0b-4c8e-994b-dd618f6c35c6",
+                            ConcurrencyStamp = "b4726041-3d36-466c-8e77-ad713d554537",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -90,17 +92,18 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDvFAOZeQPiODoHSAu3w8qq/nwMym/8uQ73FAeq8Xiw8l9YUH3mdQD03lB0LajW/MQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECskFUM/ffXTLvh3N9lKRWdnLnlIm9EZe5M6J0k7OH7YkRx/rkj7itymrZ9WvAmI9g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
-                            UserName = "Admin@Admin.com"
+                            UserName = "Admin@Admin.com",
+                            isAdmin = true
                         },
                         new
                         {
                             Id = "12345678-wega-werw-jyjt-kepsfienqp",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6e577005-e182-4488-8a7b-3999c282ba81",
+                            ConcurrencyStamp = "a67bdfa0-8fba-42b6-a0cb-240355ba1e03",
                             Email = "ThisGuy@ThisGuy.com",
                             EmailConfirmed = true,
                             FirstName = "This",
@@ -108,11 +111,12 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "THISGUY@THISGUY.COM",
                             NormalizedUserName = "THISGUY@THISGUY.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDu/lCNOZGdOVGQ17o9Ed+LFMkNJbvlnd0wShzjKrZF3bNLT23OlpaFZHTyFkE0uFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENOQe/zpoy5I3JY40r6MMBIwFzDW+k7O2czRsmbd6tqjjTT9KCvf49cN4T/c4+0njA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5r423999-f4g5-93i4-2rtt-255re563256",
                             TwoFactorEnabled = false,
-                            UserName = "ThisGuy@ThisGuy.com"
+                            UserName = "ThisGuy@ThisGuy.com",
+                            isAdmin = false
                         });
                 });
 

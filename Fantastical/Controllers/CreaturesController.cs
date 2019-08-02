@@ -30,7 +30,8 @@ namespace Fantastical.Controllers
         // GET: Creatures
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Creature.Include(c => c.Name).Include(c => c.Region);
+            var currentUser = await GetCurrentUserAsync();
+            var applicationDbContext = _context.Creature.Include(c => c.Name).Include(c => c.Region).Include(c => c.User);
             return View(await _context.Creature.ToListAsync());
         }
 
@@ -47,6 +48,17 @@ namespace Fantastical.Controllers
             this.AcceptButton = this.buttonSearch;
 
             return View(await creatureSearch.ToListAsync());
+        }
+
+        // GET My Creatures
+        public async Task<IActionResult> MyCreaturesIndex()
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+            var myCreatures = _context.Creature.Include(c => c.User).Where(c => c.UserId == currentUser.Id);
+
+            return View(await myCreatures.ToListAsync());
+            
         }
 
         // GET: Creatures/Details/5
