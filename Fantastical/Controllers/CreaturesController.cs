@@ -181,11 +181,21 @@ namespace Fantastical.Controllers
         // POST: Creatures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> SoftDeleteConfirmed(int id)
         {
             var creature = await _context.Creature.FindAsync(id);
-            _context.Creature.Remove(creature);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Creature.Remove(creature);
+                await _context.SaveChangesAsync();
+            }
+
+            catch (DbUpdateException)
+            {
+                _context.Update(creature);
+                await _context.SaveChangesAsync();
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 
