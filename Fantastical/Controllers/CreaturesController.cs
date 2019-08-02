@@ -110,24 +110,25 @@ namespace Fantastical.Controllers
         // GET: Creatures/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+           
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
 
-            var creature = await _context.Creature.FindAsync(id);
-            if (creature == null)
-            {
-                return NotFound();
-            }
+                    var creature = await _context.Creature.FindAsync(id);
+                    if (creature == null)
+                    {
+                        return NotFound();
+                    }
 
-            var currentUser = await GetCurrentUserAsync();
-            if (currentUser.Id != creature.UserId)
-            {
-                return NotFound();
-            }
+                    var currentUser = await GetCurrentUserAsync();
+                    if (currentUser.Id != creature.UserId)
+                    {
+                        return NotFound();
+                    }
 
-            return View(creature);
+                    return View(creature);
         }
 
         // POST: Creatures/Edit/5
@@ -141,34 +142,34 @@ namespace Fantastical.Controllers
             {
                 return NotFound();
             }
+                ModelState.Remove("UserId");
+                ModelState.Remove("User");
 
-            ModelState.Remove("UserId");
-            ModelState.Remove("User");
-
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    var currentUser = await GetCurrentUserAsync();
-                    creature.User = currentUser;
-                    creature.UserId = currentUser.Id;
+                    try
+                    {
+                        var currentUser = await GetCurrentUserAsync();
+                        creature.User = currentUser;
+                        creature.UserId = currentUser.Id;
 
-                    _context.Update(creature);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CreatureExists(creature.Id))
-                    {
-                        return NotFound();
+                        _context.Update(creature);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!CreatureExists(creature.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(MyCreaturesIndex));
                 }
-                return RedirectToAction(nameof(Index));
-            }
+                
             return View(creature);
         }
 
