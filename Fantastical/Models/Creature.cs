@@ -20,6 +20,7 @@ namespace Fantastical.Models
         public string Region { get; set; }
 
         [Required]
+        [Display(Name = "Image")]
         public string ImagePath { get; set; }
 
         [Required]
