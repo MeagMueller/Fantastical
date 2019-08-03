@@ -32,23 +32,35 @@
     <tbody>
         @foreach (var item in Model)
         {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lore)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Region)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ImagePath)
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        </td>
-                    </tr>
+        <tr>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                
+                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Region)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    </td>
+                
+            }
+        </tr>
                 }
     </tbody>
 </table>

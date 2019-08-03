@@ -110,25 +110,33 @@ namespace Fantastical.Controllers
         // GET: Creatures/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-           
-                    if (id == null)
-                    {
-                        return NotFound();
-                    }
+            if (_userManager.GetUserAsync(User).Result.isAdmin)
+            {
 
-                    var creature = await _context.Creature.FindAsync(id);
-                    if (creature == null)
-                    {
-                        return NotFound();
-                    }
 
-                    var currentUser = await GetCurrentUserAsync();
-                    if (currentUser.Id != creature.UserId)
-                    {
-                        return NotFound();
-                    }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-                    return View(creature);
+                var creature = await _context.Creature.FindAsync(id);
+                if (creature == null)
+                {
+                    return NotFound();
+                }
+
+                var currentUser = await GetCurrentUserAsync();
+                if (currentUser.Id != creature.UserId)
+                {
+                    return NotFound();
+                }
+
+                return View(creature);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // POST: Creatures/Edit/5
@@ -176,19 +184,28 @@ namespace Fantastical.Controllers
         // GET: Creatures/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (_userManager.GetUserAsync(User).Result.isAdmin)
+            {
+
+
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var creature = await _context.Creature
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (creature == null)
+                {
+                    return NotFound();
+                }
+
+                return View(creature);
+            }
+            else
             {
                 return NotFound();
             }
-
-            var creature = await _context.Creature
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (creature == null)
-            {
-                return NotFound();
-            }
-
-            return View(creature);
         }
 
         // POST: Creatures/Delete/5
