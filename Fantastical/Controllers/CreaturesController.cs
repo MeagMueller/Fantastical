@@ -135,7 +135,14 @@ namespace Fantastical.Controllers
             }
             else
             {
-                return NotFound();
+                var creature = await _context.Creature.FindAsync(id);
+                var currentUser = await GetCurrentUserAsync();
+                if (currentUser.Id != creature.UserId)
+                {
+                    return NotFound();
+                }
+
+                return View(creature);
             }
         }
 
