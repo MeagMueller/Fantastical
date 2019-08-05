@@ -4,14 +4,16 @@ using Fantastical.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fantastical.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190805165246_ImageUpload")]
+    partial class ImageUpload
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace Fantastical.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2bea6894-b458-417e-964a-38e912ac6620",
+                            ConcurrencyStamp = "c36279bc-bdfe-49ee-9e12-4d879db9e745",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -90,7 +92,7 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBwKyVBdGWRfaPhOPa4G0BA3zewLqmZv5YvwoEo7h8GqJ77YVVAi7A1z+KYDupjGUg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDWuOFaWTmmA/xkw43z+1fQ/YhkS8bU1jeMnIOcXqYe9QmGvNCApJuToMkEUSNQupw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -101,7 +103,7 @@ namespace Fantastical.Migrations
                         {
                             Id = "12345678-wega-werw-jyjt-kepsfienqp",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2c80585d-eddd-4299-a61e-33c147e1b01d",
+                            ConcurrencyStamp = "1b5bc282-ed4a-40bb-8687-1e8708b5ff83",
                             Email = "ThisGuy@ThisGuy.com",
                             EmailConfirmed = true,
                             FirstName = "This",
@@ -109,7 +111,7 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "THISGUY@THISGUY.COM",
                             NormalizedUserName = "THISGUY@THISGUY.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPYmWvw+33c6rte82mfAFyXGbZ63KFm0nlCiKeFD7exwAuW6HIOWC4OUKQSwBeaCAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO/c4YZgsGwET1/wvC5LNaIX9FsNefOdQQOfif97C2M+s+9LE9mJNHcnGnKmyxagJA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5r423999-f4g5-93i4-2rtt-255re563256",
                             TwoFactorEnabled = false,

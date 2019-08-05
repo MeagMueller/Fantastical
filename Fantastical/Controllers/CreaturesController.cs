@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Fantastical.Data;
 using Fantastical.Models;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Fantastical.Controllers
 {
@@ -15,14 +17,17 @@ namespace Fantastical.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHostingEnvironment hostingEnvironment;
         private object buttonSearch;
+
 
         public object AcceptButton { get; private set; }
 
-        public CreaturesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public CreaturesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHostingEnvironment hostingEnvironment)
         {
             _userManager = userManager;
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
@@ -82,6 +87,7 @@ namespace Fantastical.Controllers
         // GET: Creatures/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -90,15 +96,26 @@ namespace Fantastical.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Lore,Region,ImagePath")] Creature creature)
+        public async Task<IActionResult> Create([Bind("Id,Name,Lore,Region,Image,ImagePath")] Creature creature)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
+                string photoFileName = null;
+
+                if (creature.Image != null)
+                {
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
+                    string filePath = Path.Combine(uploadsFolder, photoFileName);
+                    creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                
                 var currentUser = await GetCurrentUserAsync();
                 creature.UserId = currentUser.Id;
+                creature.ImagePath = photoFileName;
                 _context.Add(creature);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -151,7 +168,7 @@ namespace Fantastical.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Lore,Region,ImagePath")] Creature creature)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Lore,Region,Image,ImagePath")] Creature creature)
         {
             if (id != creature.Id)
             {
@@ -160,31 +177,43 @@ namespace Fantastical.Controllers
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
 
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    try
-                    {
-                        var currentUser = await GetCurrentUserAsync();
-                        creature.User = currentUser;
-                        creature.UserId = currentUser.Id;
 
-                        _context.Update(creature);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (DbUpdateConcurrencyException)
+
+                    string photoFileName = null;
+
+                    if (creature.Image != null)
                     {
-                        if (!CreatureExists(creature.Id))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                        photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
+                        string filePath = Path.Combine(uploadsFolder, photoFileName);
+                        creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
                     }
-                    return RedirectToAction(nameof(MyCreaturesIndex));
+
+                    var currentUser = await GetCurrentUserAsync();
+                    creature.UserId = currentUser.Id;
+                    creature.ImagePath = photoFileName;
+                    _context.Update(creature);
+                    await _context.SaveChangesAsync();
                 }
-                
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CreatureExists(creature.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(creature);
         }
 
