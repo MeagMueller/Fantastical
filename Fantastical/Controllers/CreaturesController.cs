@@ -171,12 +171,13 @@ namespace Fantastical.Controllers
             }
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
+                var currentUser = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
-
 
                     string photoFileName = null;
 
@@ -186,11 +187,12 @@ namespace Fantastical.Controllers
                         photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
                         string filePath = Path.Combine(uploadsFolder, photoFileName);
                         creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                        creature.ImagePath = photoFileName;
                     }
 
-                    var currentUser = await GetCurrentUserAsync();
+                    
                     creature.UserId = currentUser.Id;
-                    creature.ImagePath = photoFileName;
+
                     _context.Update(creature);
                     await _context.SaveChangesAsync();
                 }
