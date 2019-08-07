@@ -37,29 +37,31 @@
 
             @if (SignInManager.IsSignedIn(User))
             {
-                
-                    <td>
-                        <img class="card-img-top imageThumbnail" src="@imagePath" asp-append-version="true" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Region)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    </td>
-                
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+
+                <td>
+                    <img class="card-img-top imageThumbnail" src="@imagePath" asp-append-version="true" />
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                </td>
+
             }
         </tr>
                 }

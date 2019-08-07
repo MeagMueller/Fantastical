@@ -26,9 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImagePath)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -38,28 +36,31 @@
 
             @if (SignInManager.IsSignedIn(User))
             {
+                var imagePath = "~/images/" + (item.ImagePath ?? "noimage.jpg");
+
                 var currentUser = SignInManager.UserManager.GetUserId(User);
 
                 if (item.UserId == currentUser)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lore)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Region)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ImagePath)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        </td>
-                    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            
+            <td>
+                <img class="card-img-top imageThumbnail" src="@imagePath" asp-append-version="true" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            </td>
+        </tr>
                 }
 
             }

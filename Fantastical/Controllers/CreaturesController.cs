@@ -10,6 +10,7 @@ using Fantastical.Models;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Fantastical.Models.ViewModel;
 
 namespace Fantastical.Controllers
 {
@@ -36,7 +37,7 @@ namespace Fantastical.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Creature.Include(c => c.Name).Include(c => c.Region).Include(c => c.User);
+            var applicationDbContext = _context.Creature.Include(c => c.Name).Include(c => c.Lore).Include(c => c.Region).Include(c => c.ImagePath).Include(c => c.User);
             return View(await _context.Creature.ToListAsync());
         }
 
@@ -87,8 +88,8 @@ namespace Fantastical.Controllers
         // GET: Creatures/Create
         public IActionResult Create()
         {
-
-            return View();
+            CreatureCreateViewModel viewModel = new CreatureCreateViewModel();
+            return View(viewModel);
         }
 
         // POST: Creatures/Create
@@ -96,32 +97,38 @@ namespace Fantastical.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Lore,Region,Image,ImagePath")] Creature creature)
+        public async Task<IActionResult> Create(CreatureCreateViewModel viewModel)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId");
 
+            var creature = viewModel.Creature;
+
             if (ModelState.IsValid)
             {
-                string photoFileName = null;
-
-                if (creature.Image != null)
-                {
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                    photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
-                    string filePath = Path.Combine(uploadsFolder, photoFileName);
-                    creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
                 
-                var currentUser = await GetCurrentUserAsync();
-                creature.UserId = currentUser.Id;
-                creature.ImagePath = photoFileName;
-                _context.Add(creature);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    string photoFileName = null;
+
+                    if (viewModel.Image != null)
+                    {
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                        photoFileName = Guid.NewGuid().ToString() + "_" + viewModel.Image.FileName;
+                        string filePath = Path.Combine(uploadsFolder, photoFileName);
+                        viewModel.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                    }
+
+                
+
+                    var currentUser = await GetCurrentUserAsync();
+                    creature.UserId = currentUser.Id;
+                    creature.ImagePath = photoFileName;
+                    _context.Add(creature);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                
             }
 
-            return View(creature);
+            return View(viewModel);
         }
 
         // GET: Creatures/Edit/5
@@ -130,6 +137,7 @@ namespace Fantastical.Controllers
             if (_userManager.GetUserAsync(User).Result.isAdmin)
             {
 
+                var currentUser = await GetCurrentUserAsync();
 
                 if (id == null)
                 {
@@ -137,13 +145,19 @@ namespace Fantastical.Controllers
                 }
 
                 var creature = await _context.Creature.FindAsync(id);
+
+                CreatureEditViewModel viewModel = new CreatureEditViewModel
+                {
+                    Creature = creature
+                };
+
                 if (creature == null)
                 {
                     return NotFound();
                 }
 
 
-                return View(creature);
+                return View(viewModel);
             }
             else
             {
@@ -153,8 +167,12 @@ namespace Fantastical.Controllers
                 {
                     return NotFound();
                 }
+                CreatureEditViewModel viewModel = new CreatureEditViewModel
+                {
+                    Creature = creature
+                };
 
-                return View(creature);
+                return View(viewModel);
             }
         }
 
@@ -163,37 +181,49 @@ namespace Fantastical.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Lore,Region,Image,ImagePath")] Creature creature)
+        public async Task<IActionResult> Edit(int id, CreatureEditViewModel viewModel)
         {
-            if (id != creature.Id)
+            if (id != viewModel.Creature.Id)
             {
                 return NotFound();
             }
-                ModelState.Remove("UserId");
-                ModelState.Remove("User");
+
                 var currentUser = await GetCurrentUserAsync();
+                ModelState.Remove("Creature.UserId");
+                ModelState.Remove("Creature.User");
+                ModelState.Remove("Creature.Image");
+
+            var creature = viewModel.Creature;
+
 
             if (ModelState.IsValid)
             {
 
                 try
                 {
+                    var creatureFromDatabase = await _context.Creature.FindAsync(id);
 
                     string photoFileName = null;
 
-                    if (creature.Image != null)
+                    if (viewModel.Image != null)
                     {
                         string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                        photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
+                        photoFileName = Guid.NewGuid().ToString() + "_" + viewModel.Image.FileName;
                         string filePath = Path.Combine(uploadsFolder, photoFileName);
-                        creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                        viewModel.Image.CopyTo(new FileStream(filePath, FileMode.Create));
                         creature.ImagePath = photoFileName;
                     }
 
-                    
-                    creature.UserId = currentUser.Id;
 
-                    _context.Update(creature);
+                    creatureFromDatabase.Name = creature.Name;
+                    creatureFromDatabase.Lore = creature.Lore;
+                    creatureFromDatabase.Region = creature.Region;
+                    creatureFromDatabase.ImagePath = creature.ImagePath;
+
+                    //creatureFromDatabase.UserId = viewModel.Creature.UserId;
+                    //creatureFromDatabase.User = viewModel.Creature.User;
+
+                    _context.Update(creatureFromDatabase);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -211,7 +241,7 @@ namespace Fantastical.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(creature);
+            return View(viewModel);
         }
 
         // GET: Creatures/Delete/5

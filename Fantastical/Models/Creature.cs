@@ -21,12 +21,8 @@ namespace Fantastical.Models
         [Required]
         public string Region { get; set; }
 
-        [Display(Name = "Image Path")]
+        [Display(Name = "Creature Image")]
         public string ImagePath { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Image")]
-        public IFormFile Image { get; set; }
 
         [Required]
         public ApplicationUser User { get; set; }
