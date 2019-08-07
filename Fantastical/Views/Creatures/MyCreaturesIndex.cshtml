@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Fantastical.Models.Creature>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "MyCreaturesIndex";
+}
+
+<h1>MyCreaturesIndex</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var imagePath = "~/images/" + (item.ImagePath ?? "noimage.jpg");
+
+                var currentUser = SignInManager.UserManager.GetUserId(User);
+
+                if (item.UserId == currentUser)
+                {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            
+            <td>
+                <img class="card-img-top imageThumbnail" src="@imagePath" asp-append-version="true" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            </td>
+        </tr>
+                }
+
+            }
+            {
+
+            }
+
+        }
+    </tbody>
+</table>

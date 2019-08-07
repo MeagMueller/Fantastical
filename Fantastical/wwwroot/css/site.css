@@ -7,6 +7,11 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.imageThumbnail {
+    height: 150px;
+    width: auto;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

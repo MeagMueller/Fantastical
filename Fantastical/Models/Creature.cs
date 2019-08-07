@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +21,17 @@ namespace Fantastical.Models
         [Required]
         public string Region { get; set; }
 
-        [Required]
+        [Display(Name = "Creature Image")]
         public string ImagePath { get; set; }
+
+        [NotMapped]
+        public IFormFile Image { get; set; }
+
+        [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
     }
 }
