@@ -88,8 +88,8 @@ namespace Fantastical.Controllers
         // GET: Creatures/Create
         public IActionResult Create()
         {
-            CreatureCreateViewModel viewModel = new CreatureCreateViewModel();
-            return View(viewModel);
+            
+            return View();
         }
 
         // POST: Creatures/Create
@@ -97,38 +97,39 @@ namespace Fantastical.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreatureCreateViewModel viewModel)
+        public async Task<IActionResult> Create(Creature creature)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId");
 
-            var creature = viewModel.Creature;
+     
 
             if (ModelState.IsValid)
             {
                 
                     string photoFileName = null;
 
-                    if (viewModel.Image != null)
+                    if (creature.Image != null)
                     {
                         string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                        photoFileName = Guid.NewGuid().ToString() + "_" + viewModel.Image.FileName;
+                        photoFileName = Guid.NewGuid().ToString() + "_" + creature.Image.FileName;
                         string filePath = Path.Combine(uploadsFolder, photoFileName);
-                        viewModel.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
+                        creature.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                        creature.ImagePath = photoFileName;
+                }
 
                 
 
                     var currentUser = await GetCurrentUserAsync();
                     creature.UserId = currentUser.Id;
-                    creature.ImagePath = photoFileName;
+                    
                     _context.Add(creature);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 
             }
 
-            return View(viewModel);
+            return View(creature);
         }
 
         // GET: Creatures/Edit/5

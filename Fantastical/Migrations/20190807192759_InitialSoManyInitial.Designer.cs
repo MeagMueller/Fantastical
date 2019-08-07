@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fantastical.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190802194128_Initial")]
-    partial class Initial
+    [Migration("20190807192759_InitialSoManyInitial")]
+    partial class InitialSoManyInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,7 +84,7 @@ namespace Fantastical.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4726041-3d36-466c-8e77-ad713d554537",
+                            ConcurrencyStamp = "c0636b39-c7f4-4e65-8adf-b5f7fb60301e",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -92,7 +92,7 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECskFUM/ffXTLvh3N9lKRWdnLnlIm9EZe5M6J0k7OH7YkRx/rkj7itymrZ9WvAmI9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBWG+MUmT5AnHJDxcF/E71tk4FFVK/l6kgHnRgRiynCQ2WRAmFv/qeVas63l9kqLGA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -103,7 +103,7 @@ namespace Fantastical.Migrations
                         {
                             Id = "12345678-wega-werw-jyjt-kepsfienqp",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a67bdfa0-8fba-42b6-a0cb-240355ba1e03",
+                            ConcurrencyStamp = "38a92f1d-ef04-450b-8a69-d34f2e9079ff",
                             Email = "ThisGuy@ThisGuy.com",
                             EmailConfirmed = true,
                             FirstName = "This",
@@ -111,7 +111,7 @@ namespace Fantastical.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "THISGUY@THISGUY.COM",
                             NormalizedUserName = "THISGUY@THISGUY.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENOQe/zpoy5I3JY40r6MMBIwFzDW+k7O2czRsmbd6tqjjTT9KCvf49cN4T/c4+0njA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBwQ2lSGVZNdY9HmLszGK3jFRSZHBZRHMrQ3VR5ufdcvxqnqQTVgzPaDP9SWUbJ08A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5r423999-f4g5-93i4-2rtt-255re563256",
                             TwoFactorEnabled = false,
@@ -126,8 +126,7 @@ namespace Fantastical.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImagePath")
-                        .IsRequired();
+                    b.Property<string>("ImagePath");
 
                     b.Property<string>("Lore")
                         .IsRequired();

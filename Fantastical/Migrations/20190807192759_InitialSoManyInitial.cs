@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fantastical.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialSoManyInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,7 +165,7 @@ namespace Fantastical.Migrations
                     Name = table.Column<string>(nullable: false),
                     Lore = table.Column<string>(nullable: false),
                     Region = table.Column<string>(nullable: false),
-                    ImagePath = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -182,12 +182,12 @@ namespace Fantastical.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isAdmin" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "b4726041-3d36-466c-8e77-ad713d554537", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECskFUM/ffXTLvh3N9lKRWdnLnlIm9EZe5M6J0k7OH7YkRx/rkj7itymrZ9WvAmI9g==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "Admin@Admin.com", true });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "c0636b39-c7f4-4e65-8adf-b5f7fb60301e", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEBWG+MUmT5AnHJDxcF/E71tk4FFVK/l6kgHnRgRiynCQ2WRAmFv/qeVas63l9kqLGA==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "Admin@Admin.com", true });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isAdmin" },
-                values: new object[] { "12345678-wega-werw-jyjt-kepsfienqp", 0, "a67bdfa0-8fba-42b6-a0cb-240355ba1e03", "ThisGuy@ThisGuy.com", true, "This", "Guy", false, null, "THISGUY@THISGUY.COM", "THISGUY@THISGUY.COM", "AQAAAAEAACcQAAAAENOQe/zpoy5I3JY40r6MMBIwFzDW+k7O2czRsmbd6tqjjTT9KCvf49cN4T/c4+0njA==", null, false, "5r423999-f4g5-93i4-2rtt-255re563256", false, "ThisGuy@ThisGuy.com", false });
+                values: new object[] { "12345678-wega-werw-jyjt-kepsfienqp", 0, "38a92f1d-ef04-450b-8a69-d34f2e9079ff", "ThisGuy@ThisGuy.com", true, "This", "Guy", false, null, "THISGUY@THISGUY.COM", "THISGUY@THISGUY.COM", "AQAAAAEAACcQAAAAEBwQ2lSGVZNdY9HmLszGK3jFRSZHBZRHMrQ3VR5ufdcvxqnqQTVgzPaDP9SWUbJ08A==", null, false, "5r423999-f4g5-93i4-2rtt-255re563256", false, "ThisGuy@ThisGuy.com", false });
 
             migrationBuilder.InsertData(
                 table: "Creature",
